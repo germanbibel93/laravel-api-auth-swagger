@@ -1,0 +1,124 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Login with Auth API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "pass1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU5ODgwNDE0OCwiZXhwIjoxNTk4ODA3NzQ4LCJuYmYiOjE1OTg4MDQxNDgsImp0aSI6Ijc2ZGpvN0dRYU1HSHB6WTMiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Wm_I3DetOXWd3bARPrSRbl616w5Eg1WVm5iDPzza5Y4"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": "admin",
+                                                "email": "admin@email.com",
+                                                "created_at": "2020-08-30T14:18:17.000000Z",
+                                                "updated_at": "2020-08-30T14:18:17.000000Z"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Wrong credentials"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "2"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong validation, bad email structure or empty password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Wrong validation, bad email structure or empty password"
+                                        },
+                                        "code": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
